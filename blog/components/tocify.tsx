@@ -1,3 +1,6 @@
+ /*
+    楼层导航插件
+ */
 import React from 'react';
 import { Anchor } from 'antd';
 import { last } from 'lodash';

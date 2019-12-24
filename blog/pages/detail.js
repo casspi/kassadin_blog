@@ -15,6 +15,7 @@ import marked from "marked"
 import hljs from "highlight.js"
 import 'highlight.js/styles/monokai-sublime.css'
 import Tocify from '../components/tocify.tsx'
+import servicePath from '../config/apiUrl'
 // let markdown='# P01:课程介绍和环境搭建\n' +
 //   '[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
 //   '> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
@@ -55,9 +56,9 @@ const Detail = (props) => {
   const renderer = new marked.Renderer();
   const tocify = new Tocify()
   renderer.heading = function(text, level, raw) {
-        const anchor = tocify.add(text, level);
-        return `<a id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`;
-      };
+    const anchor = tocify.add(text, level);
+    return `<a id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`;
+  };
   marked.setOptions({
     renderer: renderer,
     gfm: true,
@@ -137,7 +138,7 @@ Detail.getInitialProps = async (ctx) => {
   console.log(ctx.query.id)
   let id = ctx.query.id;
   const p = new Promise((resolve)=>{
-    axios('http://127.0.0.1:7001/getArticleById/'+id).then((res)=>{
+    axios(servicePath.getArticleById+id).then((res)=>{
       console.log(res)
       resolve(res.data.data[0])
     })
